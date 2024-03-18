@@ -3,6 +3,7 @@ import './App.css'
 
 function App () {
   const [text, setText] = useState('')
+  const [isOnline, setIsOnline] = useState(true)
   const [url, setUrl] = useState('')
   const [loading, setLoading] = useState(true)
 
@@ -55,12 +56,11 @@ function App () {
 
   const handleReloadClick = () => {
     if (navigator.onLine) {
+      setIsOnline(true)
       getCatFact()
       getCatPic()
-      document.getElementById('reload-icon').style.filter = ''
     } else {
-      document.getElementById('reload-icon').style.filter =
-        'grayscale(1) opacity(0.2)'
+      setIsOnline(false)
     }
   }
 
@@ -103,10 +103,10 @@ function App () {
               height: '24px',
               cursor: 'pointer',
               marginTop: '15px',
-              filter: navigator.onLine ? '' : 'grayscale(1) opacity(0.2)'
+              filter: isOnline ? '' : 'grayscale(1) opacity(0.2)'
             }}
           />
-          <p>{navigator.onLine ? '' : 'No internet'}</p>
+          <p>{isOnline ? '' : 'No internet'}</p>
         </div>
       )}
     </div>
